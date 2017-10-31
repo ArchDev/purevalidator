@@ -52,6 +52,17 @@ class ValidatorTest extends WordSpec with Matchers {
 
     }
 
+    "alternative syntax used" should {
+
+      "compile and work" in {
+        implicit val validator = Validator[User]
+        import me.archdev.purevalidator.syntax._
+
+        User("", "", 0).validate shouldBe Right(User("", "", 0))
+      }
+
+    }
+
   }
 
 }

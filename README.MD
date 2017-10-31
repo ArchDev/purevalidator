@@ -24,10 +24,12 @@ object User extends Validatable[User] {
 }
 ```
 
-To validate your entity, use `Validation` object:
+To validate your entity, use `Validation` object or special syntax package:
 ```scala
-Validation.validate(User("", "", 0)) // Left(Seq("firstName-is-empty", "lastName-is-empty", "age-lower-that-0"))
-Validation.validate(User("A", "K", 1)) // Right(User.Valid("A", "K", 1))
+import me.archdev.purevalidator.syntax._
+
+User("", "", 0).validate // Left(Seq("firstName-is-empty", "lastName-is-empty", "age-lower-that-0"))
+User("A", "K", 1).validate // Right(User.Valid("A", "K", 1))
 ```
 
 As you can see, if validation was successful, user model type was changed. `User.Valid` type is a same `User` object but with special mark. We can use it as just `User` object or ensure that our functions will accept only valid entities:
