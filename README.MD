@@ -2,6 +2,9 @@
 PureValidator is a Scala library implementing typesafe validation mechanism.
 With help of it, you will get compile-time guarantee on validness of data.
 
+### Idea
+Its a tricky question where in application we should validate data. Some developers prefer defensive development with data checking in every function, while on other side we can check data only in application controllers. Both ways have their pros and cons, but what if we want to get benefits from both? In PureValidator we think that we can write our code in defensive way without tons of boilerplate code and runtime overhead. 
+
 ### Example
 To demonstrate how PureValidator works, let's create test data model:
 ```scala
@@ -33,3 +36,5 @@ def saveUser(user: User.Valid): Future[Id] = ???
 Validation.validate(User("A", "K", 1)).map(saveUser) // OK
 saveUser(User("A", "K", 1)) // Type missmatch during compilation
 ```
+
+With help of `.Valid` type, we can be totally sure that nobody will use our codebase with non-validated data. 
