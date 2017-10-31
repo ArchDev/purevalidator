@@ -5,9 +5,9 @@ class Validator[T](val rules: Seq[T => ValidationResult]) {
   def check(rule: T => ValidationResult): Validator[T] =
     new Validator[T](rules :+ rule)
 
-  def check[A](valueLens: T => A, predicate: A => Boolean, errorCode: String): Validator[T] =
+  def check(valuePredicate: T => Boolean, errorCode: String): Validator[T] =
     check(obj =>
-      Some(errorCode).filterNot(_ => predicate(valueLens(obj)))
+      Some(errorCode).filterNot(_ => valuePredicate(obj))
     )
 
   def validate(t: T): Either[ValidationReport, ValidatedEntity[T]] =

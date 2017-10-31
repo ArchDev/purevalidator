@@ -23,9 +23,9 @@ class ValidatorTest extends WordSpec with Matchers {
 
       "register proper validation conditions" in {
         Validator[User]
-          .check[String](_.firstName, _.nonEmpty, "firstName-is-empty")
-          .check[String](_.lastName, _.nonEmpty, "lastName-is-empty")
-          .check[Int](_.age, _ > 0, "age-lower-that-0")
+          .check(_.firstName.nonEmpty, "firstName-is-empty")
+          .check(_.lastName.nonEmpty, "lastName-is-empty")
+          .check(_.age > 0, "age-lower-that-0")
           .validate(emptyUser) shouldBe Left(Seq("firstName-is-empty", "lastName-is-empty", "age-lower-that-0"))
       }
 

@@ -2,7 +2,7 @@ package me.archdev.purevalidator
 
 package object utils {
 
-  case class User(firstName: String, lastName: String, age: Int)
+  final case class User(firstName: String, lastName: String, age: Int)
 
   object User extends Validatable[User] {
     override implicit val validator: Validator[User] =
