@@ -1,9 +1,0 @@
-[0m[[0minfo[0m] [0m[32mValidatorTest:[0m[0m
-[0m[[0minfo[0m] [0m[32mValidator[0m[0m
-[0m[[0minfo[0m] [0m[32m  when check[0m[0m
-[0m[[0minfo[0m] [0m[32m  - should create new validator with appended rule[0m[0m
-[0m[[0minfo[0m] [0m[32m  when alternate check[0m[0m
-[0m[[0minfo[0m] [0m[32m  - should register proper validation conditions[0m[0m
-[0m[[0minfo[0m] [0m[32m  when validate[0m[0m
-[0m[[0minfo[0m] [0m[32m  - should return errors if one of checks is failed[0m[0m
-[0m[[0minfo[0m] [0m[32m  - should return Valid model if all checks passed[0m[0m
