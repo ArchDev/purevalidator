@@ -1,4 +1,6 @@
 # PureValidator
+[![Build Status](https://travis-ci.org/ArchDev/purevalidator.svg?branch=master)](https://travis-ci.org/ArchDev/purevalidator)
+
 PureValidator is a Scala library implementing typesafe validation mechanism.
 With help of it, you will get compile-time guarantee on validness of data.
 
