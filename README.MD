@@ -37,7 +37,7 @@ As you can see, if validation was successful, user model type was changed. `User
 ```scala
 def saveUser(user: User.Valid): Future[Id] = ???
 
-Validation.validate(User("A", "K", 1)).map(saveUser) // OK
+User("A", "K", 1).validate.map(saveUser) // OK
 saveUser(User("A", "K", 1)) // Type missmatch during compilation
 ```
 
