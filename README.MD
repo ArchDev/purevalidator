@@ -55,3 +55,13 @@ object Party extends Validatable[Party] {
     Validator[Party].check(_.owner) // Validator will be passed in implicit scope
 }
 ```
+
+##### Different validators
+```scala
+object User extends TypeValidatable[T] {
+  val validatorA: Validator[User] = ???
+  val validatorB: Validator[User] = ???
+}
+
+User.Valid
+```
