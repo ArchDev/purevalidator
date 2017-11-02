@@ -63,5 +63,5 @@ object User extends TypeValidatable[T] {
   val validatorB: Validator[User] = ???
 }
 
-User.validatorA.validate(validUser) //User.Valid
+someUser.validate(User.validatorA) // Right(User.Valid)
 ```
