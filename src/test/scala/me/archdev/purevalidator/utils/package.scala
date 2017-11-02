@@ -6,7 +6,16 @@ package object utils {
 
   object User extends Validatable[User] {
     override implicit val validator: Validator[User] =
-      Validator[User].check(passRule)
+      Validator[User].ruleCheck(passRule)
+  }
+
+  final case class Party(owner: User, members: Seq[User])
+
+  object Party extends Validatable[Party] {
+    override implicit val validator: Validator[Party] =
+      Validator[Party]
+        .check(_.owner)
+        .ruleCheck(passRule)
   }
 
   val emptyUser = User("", "", 0)

@@ -41,4 +41,17 @@ User("A", "K", 1).validate.map(saveUser) // OK
 saveUser(User("A", "K", 1)) // Type missmatch during compilation
 ```
 
-With help of `.Valid` type, we can be totally sure that nobody will use our codebase with non-validated data. 
+With help of `.Valid` type, we can be totally sure that nobody will use our codebase with non-validated data.
+ 
+### Features
+ 
+##### Internal objects validation
+```scala
+implicit val userValidator: Validator[User] = ???
+final case class Party(owner: User)
+
+object Party extends Validatable[Party] {
+  override implicit val validator: Validator[Party] =
+    Validator[Party].check(_.owner) // Validator will be passed in implicit scope
+}
+```

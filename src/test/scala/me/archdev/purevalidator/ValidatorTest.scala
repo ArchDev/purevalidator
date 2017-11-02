@@ -11,15 +11,11 @@ class ValidatorTest extends WordSpec with Matchers {
 
       "create new validator with appended rule" in {
         val originalValidator = Validator[User]
-        val validatorWithRule = originalValidator.check(passRule)
+        val validatorWithRule = originalValidator.ruleCheck(passRule)
 
         originalValidator.rules shouldBe Nil
         validatorWithRule.rules.size shouldBe 1
       }
-
-    }
-
-    "alternate check" should {
 
       "register proper validation conditions" in {
         Validator[User]
@@ -29,23 +25,33 @@ class ValidatorTest extends WordSpec with Matchers {
           .validate(emptyUser) shouldBe Left(Seq("firstName-is-empty", "lastName-is-empty", "age-lower-that-0"))
       }
 
+      "register validation for sub object" in {
+        implicit val validator: Validator[User] =
+          Validator[User]
+            .ruleCheck(failRule("fail"))
+
+        Validator[Party]
+          .check(_.owner)
+          .validate(Party(emptyUser, Nil)) shouldBe Left(Seq("fail"))
+      }
+
     }
 
     "validate" should {
 
       "return errors if one of checks is failed" in {
-          Validator[User]
-            .check(passRule)
-            .check(failRule("error-1"))
-            .check(failRule("error-2"))
-            .check(passRule)
-            .validate(emptyUser) shouldBe Left(Seq("error-1", "error-2"))
+        Validator[User]
+          .ruleCheck(passRule)
+          .ruleCheck(failRule("error-1"))
+          .ruleCheck(failRule("error-2"))
+          .ruleCheck(passRule)
+          .validate(emptyUser) shouldBe Left(Seq("error-1", "error-2"))
       }
 
       "return Valid model if all checks passed" in {
         Validator[User]
-          .check(passRule)
-          .check(passRule)
+          .ruleCheck(passRule)
+          .ruleCheck(passRule)
           .validate(emptyUser)
           .right.get.isInstanceOf[User.Valid] shouldBe true
       }
