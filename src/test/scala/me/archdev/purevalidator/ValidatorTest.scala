@@ -39,6 +39,14 @@ class ValidatorTest extends WordSpec with Matchers {
 
     "validate" should {
 
+      "working with AST" in {
+        import me.archdev.purevalidator.syntax._
+
+        Divide(1, 0).validate shouldBe Left(Seq("cannot divide on zero"))
+        Divide(1, 1).validate.right.get.isInstanceOf[MyADT.Valid] shouldBe true
+        Multiply(1, 1).asInstanceOf[MyADT].validate.right.get.isInstanceOf[MyADT.Valid] shouldBe true
+      }
+
       "return errors if one of checks is failed" in {
         Validator[User]
           .ruleCheck(passRule)

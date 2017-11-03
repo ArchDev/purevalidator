@@ -65,3 +65,20 @@ object User extends TypeValidatable[T] {
 
 someUser.validate(User.validatorA) // Right(User.Valid)
 ```
+
+##### ADT validation
+```scala
+sealed trait MyADT
+final case class Multiply(x: Int, y: Int) extends MyADT
+final case class Divide(x: Int, y: Int) extends MyADT
+
+object MyADT extends TypeValidatable[MyADT] {
+  implicit val divideValidator =
+    Validator[Divide]
+      .check(_.y > 0, "cannot divide on zero")
+}
+
+import me.archdev.purevalidator.syntax._
+Divide(1, 1).validate // Right(MyADT.Valid)
+Divide(1, 0).validate // Left(Seq("cannot divide on zero"))
+```

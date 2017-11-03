@@ -14,9 +14,11 @@ package object purevalidator {
 
   trait TypeValidatable[T] {
     type Valid = ValidatedEntity[T]
+    implicit val validator: Validator[T] = Validator[T]
   }
 
-  trait Validatable[T] extends TypeValidatable[T] {
+  trait Validatable[T] {
+    type Valid = ValidatedEntity[T]
     implicit val validator: Validator[T]
   }
 

@@ -18,6 +18,16 @@ package object utils {
         .ruleCheck(passRule)
   }
 
+  sealed trait MyADT
+  final case class Multiply(x: Int, y: Int) extends MyADT
+  final case class Divide(x: Int, y: Int) extends MyADT
+
+  object MyADT extends TypeValidatable[MyADT] {
+    implicit val divideValidator =
+      Validator[Divide]
+        .check(_.y > 0, "cannot divide on zero")
+  }
+
   val emptyUser = User("", "", 0)
 
   def passRule[T](t: T): ValidationResult = None
